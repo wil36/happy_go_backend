@@ -16,20 +16,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Castelnau-le-Lez',
-            'code_shop' => ' tCuWKBy2MBWylhMYigTr',
-            'email' => 'wesushu.castelnau@gmail.com',
+            'name' => 'Admin Happy Go',
+            'email' => 'elandmail7@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('Wscastelnau34'),
-            'theme' => 0,
         ]);
         User::create([
             'name' => 'Pezenas',
-            'code_shop' => 'WZEcwwSIbnngtpOugmTo',
             'email' => 'wesushu.pezenas@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('Wspezenas34'),
-            'theme' => 0,
         ]);
     }
 }
