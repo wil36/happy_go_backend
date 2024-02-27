@@ -32,6 +32,7 @@ Route::get('password', [UserController::class, 'changePassword'])->name('user.pa
 //chauffeur
 Route::middleware(['auth:sanctum', 'verified'])->get('/chauffeur-valides', [FirebaseController::class, 'getChauffeurValider'])->name("chauffeur.valide");
 Route::middleware(['auth:sanctum', 'verified'])->get('/', [FirebaseController::class, 'getChauffeurNonValider'])->name("chauffeur.nonvalide");
+Route::middleware(['auth:sanctum', 'verified'])->get('/send-push-notification', [FirebaseController::class, 'sendFcm'])->name("chauffeur.send_push");
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/changeTheme', function () {
     try {
