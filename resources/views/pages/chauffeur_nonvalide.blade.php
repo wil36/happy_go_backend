@@ -78,11 +78,21 @@
 					database.collection('users').doc(id).update({
 						'status': true,
 					}).then(() => {
+						database.collection('users').doc(id).get().then((querySnapshot) => {
+							if (querySnapshot.empty == false) {
+								console.log(querySnapshot.length());
+								querySnapshot.forEach((doc) => {
+									if (doc.exists) {
+										console.log(doc.data());
+									}
+								});
+							}
+						});
 						Swal.fire("Succès !",
 							'Votre requête s\'est terminer avec succèss',
 							'success', );
 						console.log("Document updated"); // Document updated
-						location.reload();
+						// location.reload();
 					});
 				}
 			});
