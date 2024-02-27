@@ -78,24 +78,54 @@
 					database.collection('users').doc(id).update({
 						'status': true,
 					}).then(() => {
-						database.collection('users').doc(id).get().then((querySnapshot) => {
-							if (querySnapshot.empty == false) {
-								console.log(querySnapshot.length());
-								querySnapshot.forEach((doc) => {
-									if (doc.exists) {
-										console.log(doc.data());
+						database.collection('users').doc(id).get().then((doc) => {
+							if (doc.exists) {
+								console.log('Document data:', doc.data()['fcmToken']);
+
+
+								// Données supplémentaires à inclure dans la requête AJAX
+								var additionalData = {
+									token_user: doc.data()['fcmToken'],
+									title: 'Compte activer',
+									body: 'Votre compte chauffeur a bien été activer. Cliquez ici pour ouvrir l\'application',
+									type: 'GET',
+								};
+
+								// Combiner les données du document avec les données supplémentaires
+								var requestData = $.extend({}, doc.data(), additionalData);
+
+								// Envoyer les données via une requête AJAX avec jQuery
+								$.ajax({
+									url: "{{ route('chauffeur.send_push') }}",
+									type: 'GET',
+									contentType: 'application/json',
+									data: requestData,
+									success: function(response) {
+										console.log('Réponse de la requête AJAX:',
+											response);
+										Swal.fire("Succès !",
+											'Votre requête s\'est terminer avec succèss',
+											'success', );
+
+										location.reload();
+										console.log("Document updated");
+									},
+									error: function(xhr, status, error) {
+										console.error('Erreur lors de la requête AJAX:',
+											error);
 									}
 								});
+							} else {
+								console.log('Aucun document trouvé');
 							}
+						}).catch((error) => {
+							console.error('Erreur lors de la récupération du document:', error);
 						});
-						Swal.fire("Succès !",
-							'Votre requête s\'est terminer avec succèss',
-							'success', );
-						console.log("Document updated"); // Document updated
-						// location.reload();
 					});
+					// Document updated
 				}
 			});
+
 		}
 
 		// function downloadZip(user_id) {

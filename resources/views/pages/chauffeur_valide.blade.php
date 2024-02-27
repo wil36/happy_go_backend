@@ -64,6 +64,7 @@
 			getproducts();
 		});
 
+
 		function validerUnChauffeur(id) {
 			Swal.fire({
 				title: 'Voulez-vous vraiment désactiver ce chauffeur ?',
@@ -78,14 +79,54 @@
 					database.collection('users').doc(id).update({
 						'status': false,
 					}).then(() => {
-						Swal.fire("Succès !",
-							'Votre requête s\'est terminer avec succèss',
-							'success', );
-						console.log("Document updated"); // Document updated
-						location.reload();
+						database.collection('users').doc(id).get().then((doc) => {
+							if (doc.exists) {
+								console.log('Document data:', doc.data()['fcmToken']);
+
+
+								// Données supplémentaires à inclure dans la requête AJAX
+								var additionalData = {
+									token_user: doc.data()['fcmToken'],
+									title: 'Compte désactiver',
+									body: 'Votre compte chauffeur a bien été désactiver. Cliquez ici pour ouvrir l\'application',
+									type: 'GET',
+								};
+
+								// Combiner les données du document avec les données supplémentaires
+								var requestData = $.extend({}, doc.data(), additionalData);
+
+								// Envoyer les données via une requête AJAX avec jQuery
+								$.ajax({
+									url: "{{ route('chauffeur.send_push') }}",
+									type: 'GET',
+									contentType: 'application/json',
+									data: requestData,
+									success: function(response) {
+										console.log('Réponse de la requête AJAX:',
+											response);
+										Swal.fire("Succès !",
+											'Votre requête s\'est terminer avec succèss',
+											'success', );
+
+										location.reload();
+										console.log("Document updated");
+									},
+									error: function(xhr, status, error) {
+										console.error('Erreur lors de la requête AJAX:',
+											error);
+									}
+								});
+							} else {
+								console.log('Aucun document trouvé');
+							}
+						}).catch((error) => {
+							console.error('Erreur lors de la récupération du document:', error);
+						});
 					});
+					// Document updated
 				}
 			});
+
 		}
 
 		// function downloadZip(user_id) {

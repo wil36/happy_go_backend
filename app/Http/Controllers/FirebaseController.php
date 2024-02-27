@@ -23,7 +23,7 @@ class FirebaseController extends Controller
         $SERVER_API_KEY = 'AAAAIQWc1zM:APA91bFhuinSCm7dwr_NQ1mo03gfeTlDDCqy2zt8DodL_Y0WdeoRRwdkDWfoJf4iCiN-xT_S-EahLSc_as-b5FZIsMZ8UzdYQucJx5tg4YtYxpGWhc3D_GZ_9_50SPv8j2spfAZSzTzq';
         $data = [
             "registration_ids" => [
-                $request->token_user
+                $request->token_user,
             ],
             "notification" => [
 
