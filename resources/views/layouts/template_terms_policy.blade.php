@@ -18,6 +18,11 @@
         <link id="skin-default" rel="stylesheet" href="{!! asset('assets/css/theme.css?ver=2.2.0') !!}">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
         @yield('css')
+        <style>
+            strong {
+                font-weight: 900;
+            }
+        </style>
     </head>
 
 

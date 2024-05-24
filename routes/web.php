@@ -62,5 +62,5 @@ Route::middleware([
 | Terms & Privacy Routes
 |--------------------------------------------------------------------------
 */
-Route::get('/politique-de-confidentialite', [PolicyController::class, 'privacy'])->name('privacy');
-Route::get('/conditions-generales-d-utilisation', [PolicyController::class, 'terms'])->name('terms');
+Route::get('/politique-de-confidentialite', [PolicyController::class, 'privacy'])->name('politique');
+Route::get('/conditions-generales-d-utilisation', [PolicyController::class, 'terms'])->name('conditions');
