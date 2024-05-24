@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\FirebaseController;
+use App\Http\Controllers\{FirebaseController, PolicyController};
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use Laravel\Jetstream\Jetstream;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +55,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Terms & Privacy Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/politique-de-confidentialite', [PolicyController::class, 'privacy'])->name('privacy');
+Route::get('/conditions-generales-d-utilisation', [PolicyController::class, 'terms'])->name('terms');
