@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="author" content="Nat Finance">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Application de tontine numérique">
+        <meta name="description" content="Application de Covoiturage">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Fav Icon  -->
         <link rel="shortcut icon" href="{!! asset('images/favicon.png') !!}">
