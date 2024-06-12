@@ -29,6 +29,7 @@ Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
 Route::post('update_profile', [UserController::class, 'updateProfile'])->name('user.update.profile');
 Route::post('update_password', [UserController::class, 'updatePassword'])->name('user.update.password');
 Route::get('password', [UserController::class, 'changePassword'])->name('user.password');
+Route::get('/suppression-compte', [PolicyController::class, 'security'])->name('security');
 
 //chauffeur
 Route::middleware(['auth:sanctum', 'verified'])->get('/chauffeur-valides', [FirebaseController::class, 'getChauffeurValider'])->name("chauffeur.valide");

@@ -37,4 +37,15 @@ class PolicyController extends Controller
             'terms' => Str::markdown(file_get_contents($termsFile)), // 
         ]);
     }
+
+    /**
+     * security
+     * 
+     * Cette fonctionnalité permet aux utilisateurs de supprimer leurs données personnelles
+     * grâce à l'envoie d'un mail ou on doit renseigner nom, téléphone et numéro de CNI
+     */
+    public function security()
+    {
+        return view('profile.delete-user-account');
+    }
 }
