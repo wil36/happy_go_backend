@@ -17,6 +17,7 @@ class NotchPayController extends Controller
     public function __construct(NotchRepository $nocthRepository)
     {
         $this->token = env("NOTCH_TOKEN_PRODUCTION");
+        // $this->token = env("NOTCH_TOKEN_SANDBOX");
         $this->nocthRepository = $nocthRepository;
     }
 
@@ -48,11 +49,11 @@ class NotchPayController extends Controller
 
         // Création de URL avec les paramètres en GET de la transaction
         $params = [
-            'email' => 'info@eland.cc',
-            'currency' => 'XAF',
-            'amount' => 1000,
-            'phone' => '+237655091353',
-            'reference' => "vdfsvezfezfez|" . uniqid('', true) . uniqid('', true) . "EtG",
+            'email' => $request->email,
+            'name' => "Mobile User",
+            'currency' => $request->currency,
+            'amount' => $request->amount,
+            'phone' => $request->phone,
             'description' => 'HappyGo',
         ];
 
@@ -61,6 +62,25 @@ class NotchPayController extends Controller
 
         return $transaction;
     }
+
+    // Initialisation transaction pack mois Euroupe
+    public function initTransferts(Request $request)
+    {
+        // Création de URL avec les paramètres en GET de la transaction
+        $params = [
+            'currency' => $request->currency,
+            'amount' => $request->amount,
+            'channel' => 'cm.mobile',
+            'beneficiary' => ["phone" => "+237656019261"],
+            'description' => 'HappyGo',
+        ];
+
+        // Requete vers NotchPay pour l'initiation de la transaction
+        $transaction = $this->nocthRepository->initTransferts($params);
+
+        return $transaction;
+    }
+
 
     // Vérification de l'etat d'une transaction
     public function verifiedTransac($ref)

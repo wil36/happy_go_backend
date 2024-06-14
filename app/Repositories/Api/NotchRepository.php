@@ -18,8 +18,6 @@ class NotchRepository
     // Initialisation d'une transaction
     public function initTransac($params)
     {
-
-
         // Contruction de URL avec les paramètres
         $url = "https://api.notchpay.co/payments/initialize?" . http_build_query($params);
 
@@ -27,6 +25,48 @@ class NotchRepository
             'Authorization' => $this->token,
             'Accept' => 'application/json',
         ])->retry(3, 300)->post($url);
+
+        if ($response->successful()) {
+            // La requête a réussi
+            return $response->json();
+        }
+
+        if ($response->failed()) {
+            // La requête a échoué
+            return $response->json();
+        }
+    }
+
+    public function initTransferts($params)
+    {
+        // Contruction de URL avec les paramètres
+        $url = "https://api.notchpay.co/transfers?" . http_build_query($params);
+
+        $response = Http::withHeaders([
+            'Authorization' => $this->token,
+            'Accept' => 'application/json',
+        ])->retry(3, 300)->post($url);
+
+        if ($response->successful()) {
+            // La requête a réussi
+            return $response->json();
+        }
+
+        if ($response->failed()) {
+            // La requête a échoué
+            return $response->json();
+        }
+    }
+
+    // Requete HTTP de confirmation de transfert
+    public function confirmTransfert($ref)
+    {
+
+        $response = Http::withHeaders([
+            'Authorization' => $this->token,
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ])->withBody(json_encode([]), 'application/json')->put('https://api.notchpay.co/transfers/' . $ref);
 
         if ($response->successful()) {
             // La requête a réussi

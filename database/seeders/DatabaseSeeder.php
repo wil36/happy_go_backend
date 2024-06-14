@@ -18,14 +18,9 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Admin Happy Go',
             'email' => 'elandmail7@gmail.com',
+            'phone' => '+237655091353',
             'email_verified_at' => now(),
-            'password' => Hash::make('Wscastelnau34'),
-        ]);
-        User::create([
-            'name' => 'Pezenas',
-            'email' => 'wesushu.pezenas@gmail.com',
-            'email_verified_at' => now(),
-            'password' => Hash::make('Wspezenas34'),
+            'password' => Hash::make('123456'),
         ]);
     }
 }
