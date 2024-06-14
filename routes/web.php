@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\FirebaseController;
+use App\Http\Controllers\{FirebaseController, PolicyController};
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Kreait\Laravel\Firebase\Facades\Firebase;
+use Laravel\Jetstream\Jetstream;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::get('profile', [UserController::class, 'profile'])->name('user.profile');
 Route::post('update_profile', [UserController::class, 'updateProfile'])->name('user.update.profile');
 Route::post('update_password', [UserController::class, 'updatePassword'])->name('user.update.password');
 Route::get('password', [UserController::class, 'changePassword'])->name('user.password');
+Route::get('/suppression-compte', [PolicyController::class, 'security'])->name('security');
 
 //chauffeur
 Route::middleware(['auth:sanctum', 'verified'])->get('/chauffeur-valides', [FirebaseController::class, 'getChauffeurValider'])->name("chauffeur.valide");
@@ -54,3 +56,12 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| Terms & Privacy Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/politique-de-confidentialite', [PolicyController::class, 'privacy'])->name('politique');
+Route::get('/conditions-generales-d-utilisation', [PolicyController::class, 'terms'])->name('conditions');
