@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'elandmail7@gmail.com',
             'phone' => '+237655091353',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('Wscastelnau34-'),
         ]);
     }
 }
