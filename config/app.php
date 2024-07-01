@@ -166,6 +166,9 @@ return [
          * Package Service Providers...
          */
 
+        Collective\Html\HtmlServiceProvider::class,
+        Kreait\Laravel\Firebase\ServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

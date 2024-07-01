@@ -17,7 +17,9 @@
         "laravel/jetstream": "^2.9",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "ramsey/uuid": "*"
+        "laravelcollective/html": "^6.4",
+        "ramsey/uuid": "*",
+        "svk/yc-grpc-injector": "^0.0.1"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
