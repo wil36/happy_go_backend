@@ -13,6 +13,11 @@ class FirebaseController extends Controller
         return view('pages.chauffeur_nonvalide');
     }
 
+    function getChauffeurNonValider2(Request $request)
+    {
+        return view('pages.chauffeur_nonvalide');
+    }
+
     function getChauffeurValider()
     {
         return view('pages.chauffeur_valide');
