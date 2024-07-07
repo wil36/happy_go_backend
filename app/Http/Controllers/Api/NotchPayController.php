@@ -68,10 +68,9 @@ class NotchPayController extends Controller
     {
         // Création de URL avec les paramètres en GET de la transaction
         $params = [
-            'currency' => $request->currency,
-            'amount' => $request->amount,
-            'channel' => 'cm.mobile',
-            'beneficiary' => ["phone" => "+237656019261"],
+            'currency' => "XAF",
+            'amount' => "1000",
+            'recipient' => 'rcp.l9DwD42E44VulFUo',
             'description' => 'HappyGo',
         ];
 
@@ -113,6 +112,29 @@ class NotchPayController extends Controller
 
         // Requete HTTP d'annulation de transaction NotchPay
         $transaction =  $this->nocthRepository->cancelTransRequest($ref);
+
+        return $transaction;
+    }
+
+    // Initialisation transaction pack mois Euroupe
+    public function createRecipient(Request $request)
+    {
+
+
+        // Création de URL avec les paramètres en GET de la transaction
+        $params = [
+            "channel" => "cm.mobile",
+            "number" => "+237655091353",
+            "phone" => "+237655091353",
+            "email" => "",
+            "country" => "CM",
+            "name" => "Wilfrid Tiam",
+            "description" => "Hic blanditiis voluptatem nobis ut saepe dolorem molestiae dolorum.",
+            "reference" => "3RAV4gZLesBAXTrwiuUDLnJGSAS4RVEbM2"
+        ];
+
+        // Requete vers NotchPay pour l'initiation de la transaction
+        $transaction = $this->nocthRepository->createRecipient($params);
 
         return $transaction;
     }

@@ -9,10 +9,12 @@ class NotchRepository
 {
 
     private $token;
+    private $privateToken;
 
     public function __construct()
     {
         $this->token = env("NOTCH_TOKEN_PRODUCTION");
+        $this->privateToken = env("NOTCH_TOKEN_PRIVATE_PRODUCTION");
     }
 
     // Initialisation d'une transaction
@@ -43,6 +45,7 @@ class NotchRepository
         $url = "https://api.notchpay.co/transfers?" . http_build_query($params);
 
         $response = Http::withHeaders([
+            "X-Grant" => $this->privateToken,
             'Authorization' => $this->token,
             'Accept' => 'application/json',
         ])->retry(3, 300)->post($url);
@@ -116,6 +119,27 @@ class NotchRepository
             'Accept' => 'application/json',
         ])->delete('https://api.notchpay.co/payments/' . $ref);
 
+        if ($response->successful()) {
+            // La requête a réussi
+            return $response->json();
+        }
+
+        if ($response->failed()) {
+            // La requête a échoué
+            return $response->json();
+        }
+    }
+
+    // Annulation d'une transaction
+    public function createRecipient($params)
+    {
+        $url = "https://api.notchpay.co/recipients?" . http_build_query($params);
+
+        $response = Http::withHeaders([
+            'Authorization' => $this->token,
+            "X-Grant" => $this->privateToken,
+            'Accept' => 'application/json',
+        ])->retry(3, 300)->post($url);
         if ($response->successful()) {
             // La requête a réussi
             return $response->json();
