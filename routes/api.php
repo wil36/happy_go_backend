@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->post('/test-api-key', 'App\Http\Controllers\A
 Route::middleware('auth:sanctum')->post('/init-transaction', 'App\Http\Controllers\Api\NotchPayController@initTransac');
 
 // Route pour initialiser une transaction
-Route::post('/init-transfert', 'App\Http\Controllers\Api\NotchPayController@initTransferts');
+Route::middleware('auth:sanctum')->post('/init-transfert', 'App\Http\Controllers\Api\NotchPayController@initTransferts');
 
 // Route pour vérifier l'état d'une transaction
 Route::middleware('auth:sanctum')->post('/verify-transaction/{ref}', 'App\Http\Controllers\Api\NotchPayController@verifiedTransac');
@@ -37,11 +37,12 @@ Route::middleware('auth:sanctum')->post('/verify-transaction/{ref}', 'App\Http\C
 Route::middleware('auth:sanctum')->post('/confirm-payment/{ref}', 'App\Http\Controllers\Api\NotchPayController@confirmPay');
 
 // Route pour confirmer un transfert
-Route::middleware('auth:sanctum')->post('/confirm-transfert/{ref}', 'App\Http\Controllers\Api\NotchPayController@confirmTransfert');
+Route::middleware('auth:sanctum')->post('/confirm-transfert/{ref}', 'App\Http\Controllers\Api\NotchPayController@verifyTransferts');
 
 // Route pour annuler une transaction
 Route::middleware('auth:sanctum')->post('/cancel-payment/{ref}', 'App\Http\Controllers\Api\NotchPayController@cancelPay');
 
 
 // Route pour annuler une transaction
-Route::post('/create-recipient', 'App\Http\Controllers\Api\NotchPayController@createRecipient');
+Route::middleware('auth:sanctum')->post('/create-recipient', 'App\Http\Controllers\Api\NotchPayController@createRecipient');
+Route::middleware('auth:sanctum')->post('/get-recipient', 'App\Http\Controllers\Api\NotchPayController@getRecipient');

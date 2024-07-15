@@ -68,14 +68,22 @@ class NotchPayController extends Controller
     {
         // Création de URL avec les paramètres en GET de la transaction
         $params = [
-            'currency' => "XAF",
-            'amount' => "1000",
-            'recipient' => 'rcp.l9DwD42E44VulFUo',
-            'description' => 'HappyGo',
+            'currency' => $request->currency,
+            'amount' => $request->amount,
+            'recipient' => $request->recipient,
+            'description' => $request->description,
         ];
 
         // Requete vers NotchPay pour l'initiation de la transaction
         $transaction = $this->nocthRepository->initTransferts($params);
+
+        return $transaction;
+    }
+
+    public function verifyTransferts(Request $request)
+    {
+        // Requete vers NotchPay pour l'initiation de la transaction
+        $transaction = $this->nocthRepository->verifyTransferts($request->ref);
 
         return $transaction;
     }
@@ -122,19 +130,38 @@ class NotchPayController extends Controller
 
 
         // Création de URL avec les paramètres en GET de la transaction
+        // $params = [
+        //     "channel" => "cm.mobile",
+        //     "number" => "+237655091352",
+        //     "phone" => "+237655091352",
+        //     "email" => "",
+        //     "country" => "CM",
+        //     "name" => "Wilfrid Tiam",
+        //     "description" => "Hic blanditiis voluptatem nobis ut saepe dolorem molestiae dolorum.",
+        //     "reference" => "3RAV4gZLesBAXTrwiuUDLnJGSAS4RVEbM2"
+        // ];
         $params = [
-            "channel" => "cm.mobile",
-            "number" => "+237655091353",
-            "phone" => "+237655091353",
+            "channel" => $request->channel,
+            "number" => $request->phone,
+            "phone" => $request->phone,
             "email" => "",
-            "country" => "CM",
-            "name" => "Wilfrid Tiam",
-            "description" => "Hic blanditiis voluptatem nobis ut saepe dolorem molestiae dolorum.",
-            "reference" => "3RAV4gZLesBAXTrwiuUDLnJGSAS4RVEbM2"
+            "country" => $request->country,
+            "name" => $request->name,
+            "description" => $request->description,
+            "reference" => $request->reference
         ];
 
         // Requete vers NotchPay pour l'initiation de la transaction
         $transaction = $this->nocthRepository->createRecipient($params);
+
+        return $transaction;
+    }
+
+    public function getRecipient(Request $request)
+    {
+
+        // Requete vers NotchPay pour l'initiation de la transaction
+        $transaction = $this->nocthRepository->getRecipient();
 
         return $transaction;
     }

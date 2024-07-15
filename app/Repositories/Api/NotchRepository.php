@@ -25,6 +25,7 @@ class NotchRepository
 
         $response = Http::withHeaders([
             'Authorization' => $this->token,
+            "X-Grant" => $this->privateToken,
             'Accept' => 'application/json',
         ])->retry(3, 300)->post($url);
 
@@ -49,6 +50,29 @@ class NotchRepository
             'Authorization' => $this->token,
             'Accept' => 'application/json',
         ])->retry(3, 300)->post($url);
+
+        if ($response->successful()) {
+            // La requête a réussi
+            return $response->json();
+        }
+
+        if ($response->failed()) {
+            // La requête a échoué
+            return $response->json();
+        }
+    }
+
+
+    public function verifyTransferts($ref)
+    {
+        // Contruction de URL avec les paramètres
+        $url = "https://api.notchpay.co/transfers/" . $ref;
+
+        $response = Http::withHeaders([
+            "X-Grant" => $this->privateToken,
+            'Authorization' => $this->token,
+            'Accept' => 'application/json',
+        ])->retry(3, 300)->get($url);
 
         if ($response->successful()) {
             // La requête a réussi
@@ -140,6 +164,26 @@ class NotchRepository
             "X-Grant" => $this->privateToken,
             'Accept' => 'application/json',
         ])->retry(3, 300)->post($url);
+        if ($response->successful()) {
+            // La requête a réussi
+            return $response->json();
+        }
+
+        if ($response->failed()) {
+            // La requête a échoué
+            return $response->json();
+        }
+    }
+
+    public function getRecipient()
+    {
+        $url = "https://api.notchpay.co/recipients/rcp.FY6J0IYH2awGskGN2";
+
+        $response = Http::withHeaders([
+            'Authorization' => $this->token,
+            "X-Grant" => $this->privateToken,
+            'Accept' => 'application/json',
+        ])->retry(3, 300)->get($url);
         if ($response->successful()) {
             // La requête a réussi
             return $response->json();
